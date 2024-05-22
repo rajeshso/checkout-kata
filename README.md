@@ -43,3 +43,5 @@ You should not spend more than a few hours on this problem. Please provide the s
      rule.quantity.to.trigger=3
      rule.discount.quantity=1
   - Please refer the format for other rules in the config_rules[n].cfg files.
+- Please place the config_rules.cfg and config_rules[n].cfg files in the resources folder or the root of the project.
+- The file sizes should not be too large to fit in memory.
