@@ -18,3 +18,28 @@ The output required is the receipt with the actual price of every item and the g
 The code should be simple and flexible so that any new rule should be added with the minimum effort.
 
 You should not spend more than a few hours on this problem. Please provide the source code along with `README.md` instructions on how to build/test/run the system. If you have any questions, feel free to open a Github Issue. **When you have completed the challenge please submit a Pull Request.**
+
+# Solution 
+
+## Assumptions
+- The input files are in CSV format and CFG file in properties format.
+- ```shell 
+   chmod +x validate_checkout_files.sh 
+  ```
+- use this command to validate the files. The script does few data sanity checks, but is not exhaustive enough.
+  ```shell
+    ./validate_checkout_files.sh <checkout_items.csv> <config_rules.cfg>
+    ```
+- The input files are validated for the following conditions:
+- The checkout_items.csv file should have the following columns:
+  - item-id
+  - group-id
+  - quantity
+  - unit-price
+- The config_rules.cfg file should have the following properties:
+  - Rule1: buy any 3 equal priced items and pay for 2
+     rule.id=1
+     rule.type=BUY_X_PAY_Y
+     rule.quantity.to.trigger=3
+     rule.discount.quantity=1
+  - Please refer the format for other rules in the config_rules[n].cfg files.
