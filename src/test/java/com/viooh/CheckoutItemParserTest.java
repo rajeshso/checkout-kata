@@ -33,7 +33,7 @@ public class CheckoutItemParserTest {
   }
   @Test
   public void testParseCheckoutItems_InvalidFormat() {
-    String filePath = userDir + "/src/test/resources/invalid_checkout_items.csv"; // Replace with your test file path
+    String filePath = userDir + "/src/test/resources/invalid_checkout_items.csv";
 
     try {
       CheckoutItemParser.parseCheckoutItems(filePath);
@@ -44,7 +44,7 @@ public class CheckoutItemParserTest {
   }
   @Test
   public void testParseCheckoutItems_FileNotFound() {
-    String filePath = userDir + "/src/test/resources/invalid_file.csv"; // Replace with your test file path
+    String filePath = userDir + "/src/test/resources/invalid_file.csv";
 
     try {
       CheckoutItemParser.parseCheckoutItems(filePath);
@@ -55,7 +55,7 @@ public class CheckoutItemParserTest {
   }
   @Test
   public void testParseCheckoutItems_EmptyFile() {
-    String filePath = userDir + "/src/test/resources/empty_file.csv"; // Replace with your test file path
+    String filePath = userDir + "/src/test/resources/empty_file.csv";
 
     try {
       List<CheckoutItem> items = CheckoutItemParser.parseCheckoutItems(filePath);
