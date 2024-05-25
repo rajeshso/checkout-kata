@@ -1,0 +1,7 @@
+checkoutItems,eligibleItems,specialPricePerUnit,exceptionMessage,intent
+item1:1:1:10.00,item1,10.00,"Special price per unit must be less than the actual unit price in order to apply the SPECIAL_PRICE_FOR_ITEM. Special price per unit: £10.00 is not less than the actual unit price: £10.00","Special price equal to the unit price."
+item2:1:3:10.00,item2,12.00,"Special price per unit must be less than the actual unit price in order to apply the SPECIAL_PRICE_FOR_ITEM. Special price per unit: £12.00 is not less than the actual unit price: £10.00","Special price higher than unit price."
+item3:1:3:10.00,item3,-1.00,"SpecialPricePerUnit must be greater than zero","Negative special price."
+item3:1:3:10.00,item3,0.00,"SpecialPricePerUnit must be greater than zero","Zero special price."
+item1:1:2:10.00;item2:1:2:15.00,item1;item2,8.00,"All items must have the same unit price of £10.00 to apply the SPECIAL_PRICE_FOR_ITEM. But item item2 has a unit price of £15.00","Items with varying unit prices."
+item1:1:1:10.00,item2,8.00,"Item item1 is not eligible for this rule","No eligible items."

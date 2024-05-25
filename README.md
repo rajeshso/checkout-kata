@@ -21,7 +21,7 @@ You should not spend more than a few hours on this problem. Please provide the s
 
 # Solution 
 
-## Assumptions
+## Notes
 - The input files are in CSV format and CFG file in properties format.
 - ```shell 
    chmod +x validate_checkout_files.sh 
@@ -45,3 +45,4 @@ You should not spend more than a few hours on this problem. Please provide the s
   - Please refer the format for other rules in the config_rules[n].cfg files.
 - Please place the config_rules.cfg and config_rules[n].cfg files in the resources folder or the root of the project.
 - The file sizes should not be too large to fit in memory.
+- Comments are code smell because the code should be self-explanatory. Yet, I have added comments to communicate intent quicker the algorithm code to the interview panel. The comments will be removed in the production code though.[https://refactoring.guru/smells/comments#:~:text=Comments%20are%20usually%20created%20with,code%20that%20could%20be%20improved.]
