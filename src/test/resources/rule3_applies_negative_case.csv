@@ -1,0 +1,7 @@
+checkoutItems,eligibleGroupForThisRule,exceptionMessage,intent
+item1:1:2:10.00,1,"Group 1 does not have enough items for discount.","Less than required items for discount."
+item1:1:1:10.00,2,"Group 2 does not have enough items for discount.","Not enough items in any group."
+item1:1:2:10.00;item2:1:2:5.00,2,"Group 2 does not have enough items for discount.","Eligible group but not enough items."
+item1:1:2:10.00,2,"Eligible group but not enough items.","Group with fewer than 3 items."
+item1:1:2:10.00,3,"Presence of non Eligible group should return false.","Reject non eligible groups."
+

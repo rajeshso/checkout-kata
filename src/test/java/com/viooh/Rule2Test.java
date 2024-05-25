@@ -1,5 +1,6 @@
 package com.viooh;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
 
@@ -14,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Rule2Test {
 
+  @DisplayName("All positive tests for Rule2 calculate discount")
   @ParameterizedTest
   @CsvFileSource(resources = "/rule2_positive_case.csv", numLinesToSkip = 1)
   void testCalculateDiscount_PositiveCases(String checkoutItemsStr, String eligibleItemsStr, String specialPriceStr, String expectedDiscountStr, String intent) {
@@ -29,6 +31,7 @@ class Rule2Test {
     assertEquals(expectedDiscount, discount, intent);
   }
 
+  @DisplayName("All negative tests for Rule2 calculate discount")
   @ParameterizedTest
   @CsvFileSource(resources = "/rule2_negative_case.csv", numLinesToSkip = 1)
   void testCalculateDiscount_NegativeCases(String checkoutItemsStr, String eligibleItemsStr, String specialPriceStr, String exceptionMessage, String intent) {
@@ -43,6 +46,8 @@ class Rule2Test {
 
     assertEquals(exceptionMessage, exception.getMessage(), intent);
   }
+
+  @DisplayName("All positive tests for Rule2 applies")
   @ParameterizedTest
   @CsvFileSource(resources = "/rule2_applies_positive_case.csv", numLinesToSkip = 1)
   void testAppliesPositive(String checkoutItemsStr, String eligibleItemsStr, BigDecimal specialPricePerUnit, boolean expectedResult, String intent) {
@@ -53,6 +58,7 @@ class Rule2Test {
     assertTrue(rule.applies(checkoutItems), intent);
   }
 
+  @DisplayName("All negative tests for Rule2 applies")
   @ParameterizedTest
   @CsvFileSource(resources = "/rule2_applies_negative_case.csv", numLinesToSkip = 1)
   void testAppliesNegative(String checkoutItemsStr, String eligibleItemsStr, BigDecimal specialPricePerUnit, String exceptionMessage, String intent) {

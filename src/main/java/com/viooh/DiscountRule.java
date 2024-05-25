@@ -8,5 +8,5 @@ interface DiscountRule {
   String getRuleName();
   boolean applies(List<CheckoutItem> items);
   BigDecimal calculateDiscount(List<CheckoutItem> items);
-  List<String> getEligibleItemsForThisRule();
+  List<String> getEligibleElementsForThisRule();
 }

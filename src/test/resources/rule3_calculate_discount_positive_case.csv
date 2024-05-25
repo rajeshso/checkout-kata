@@ -1,0 +1,6 @@
+checkoutItems,expectedResult,intent
+item1:1:3:10.00,10.00,"Three items in the group, all eligible for discount."
+item1:1:5:10.00,10.00,"Five items in the group, only one eligible for discount."
+item1:1:6:10.00,20.00,"Six items in the group, all eligible for discount."
+item1:1:3:10.00;item2:1:3:5.00,10.00,"Three items in the group, some eligible and some not."
+item1:1:2:10.00;item2:1:2:5.00,5.00,"Four items in the group, some eligible and some not."

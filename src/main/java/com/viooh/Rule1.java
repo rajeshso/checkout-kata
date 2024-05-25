@@ -57,7 +57,7 @@ public class Rule1 implements DiscountRule {
 
 
   @Override
-  public List<String> getEligibleItemsForThisRule() {
+  public List<String> getEligibleElementsForThisRule() {
     return eligibleItemsForThisRule;
   }
 }
