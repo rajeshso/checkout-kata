@@ -5,7 +5,7 @@ import java.util.List;
 
 // Rule2: buy 2 equal priced items for a special price
 public class Rule2 implements DiscountRule {
-  private static final String RULE_NAME = "SPECIAL_PRICE_FOR_ITEM";
+  private static final RuleConstants RULE_NAME = RuleConstants.SPECIAL_PRICE_RULE;
   private static final int X = 2;
   private final List<String> eligibleItemsForThisRule;
   private final BigDecimal specialPricePerUnit;
@@ -24,7 +24,7 @@ public class Rule2 implements DiscountRule {
   }
 
   @Override
-  public String getRuleName() {
+  public RuleConstants getRuleName() {
     return RULE_NAME;
   }
 

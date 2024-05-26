@@ -26,9 +26,9 @@ You should not spend more than a few hours on this problem. Please provide the s
 - ```shell 
    chmod +x validate_checkout_files.sh 
   ```
-- use this command to validate the files. The script does few data sanity checks, but is not exhaustive enough.
+- use this command to validate the checkout files. The script does few data sanity checks, but is not exhaustive enough.
   ```shell
-    ./validate_checkout_files.sh <checkout_items.csv> <config_rules.cfg>
+    ./validate_checkout_files.sh <checkout_items.csv>
     ```
 - The input files are validated for the following conditions:
 - The checkout_items.csv file should have the following columns:
@@ -36,13 +36,65 @@ You should not spend more than a few hours on this problem. Please provide the s
   - group-id
   - quantity
   - unit-price
-- The config_rules.cfg file should have the following properties:
-  - Rule1: buy any 3 equal priced items and pay for 2
-     rule.id=1
-     rule.type=BUY_X_PAY_Y
-     rule.quantity.to.trigger=3
-     rule.discount.quantity=1
-  - Please refer the format for other rules in the config_rules[n].cfg files.
-- Please place the config_rules.cfg and config_rules[n].cfg files in the resources folder or the root of the project.
+- The config_rules.json file should have the following properties:
+        ```json
+        {
+          "buyXPayYRules": [
+                {
+                "id": 1,
+                "itemIds": ["E", "F"],
+                "triggerQuantity": 3,
+                "discountQuantity": 1,
+                "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+                },
+                {
+                "id": 2,
+                "itemIds": ["E", "F"],
+                "triggerQuantity": 3,
+                "discountQuantity": 1,
+                "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+                }
+          ],
+          "specialPriceRules": [
+                {
+                "id": 21,
+                "itemIds": ["E", "F"],
+                "specialPrice": 10.00,
+                "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
+                },
+                {
+                "id": 2,
+                "itemIds": ["E", "F"],
+                "specialPrice": 10.00,
+                "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
+                }
+          ],
+          "cheapestFreeInGroupRules": [
+                {
+          "id": 3,
+          "groupId": 3,
+          "comment": "This belongs to Rule3: Buy 3 of A, B, C, D and get the cheapest free."
+          }
+          ],
+          "buyNOfXGetKOfYFreeRules": [
+                {
+          "id": 4,
+          "itemX": "A",
+          "itemY": "B",
+          "ntoTrigger": 3,
+          "ktoTrigger": 1,
+          "comment": "Example is Buy 3(N) bottles of water (X) and get 1(K) soda (Y) for free (N = 3, X=Water, K = 1, Y=Soda). This belongs to Rule4: for each N items X, you get K items Y for free"
+          }
+          ]
+        }
+        ```
+      - Please use the format for rules as in the promotion_rules.json files. The rules are categorized into 4 types:
+        - buyXPayYRules
+        - specialPriceRules
+        - cheapestFreeInGroupRules
+        - buyNOfXGetKOfYFreeRules
+      - By default, the promotion_rules.json file in the root is used in the code. But you can create and configure any file path in the code.
+      - The reason for individual rules is to make the code flexible and easy to add new rules that adhere to Type safety.
+- Please place the config_rules.cfg and promotion_rules.json files in the resources folder or the root of the project.
 - The file sizes should not be too large to fit in memory.
 - Comments are code smell because the code should be self-explanatory. Yet, I have added comments to communicate intent quicker the algorithm code to the interview panel and for discussion during the interview. The comments will be removed in the production code though.[https://refactoring.guru/smells/comments#:~:text=Comments%20are%20usually%20created%20with,code%20that%20could%20be%20improved.]

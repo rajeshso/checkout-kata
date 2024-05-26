@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 //Rule3: buy 3 (in a group of X=3 items) and the cheapest is free
 public class Rule3 implements DiscountRule {
 
-  private final static String RULE_NAME = "CHEAPEST_FREE_IN_GROUP";
+  private final static RuleConstants RULE_NAME = RuleConstants.CHEAPEST_FREE_IN_GROUP_RULE;
   private final static int X = 3;
   private final Set<Integer> eligibleGroupForThisRule;
 
@@ -23,7 +23,7 @@ public class Rule3 implements DiscountRule {
 
 
   @Override
-  public String getRuleName() {
+  public RuleConstants getRuleName() {
     return RULE_NAME;
   }
 

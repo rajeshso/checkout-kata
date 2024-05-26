@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 //Rule1: buy any 3 equal priced items and pay for 2
 public class Rule1 implements DiscountRule {
 
-  private final static String RULE_NAME = "BUY_X_PAY_Y";
+  private final static RuleConstants RULE_NAME = RuleConstants.BUY_X_PAY_Y_RULE;
   private final static int X = 3;
 
   private final List<String> eligibleItemsForThisRule;
@@ -17,7 +17,7 @@ public class Rule1 implements DiscountRule {
   }
 
   @Override
-  public String getRuleName() {
+  public RuleConstants getRuleName() {
     return RULE_NAME;//Buy3PayFor2Rule
   }
 

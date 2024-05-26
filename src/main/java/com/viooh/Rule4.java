@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Customer get K items Y for free: Upon purchasing N items of X, customer can get another product (Y) completely free of charge. customer receive K number of free items Y.
  */
 public class Rule4 implements DiscountRule {
-  private final static String RULE_NAME = "BUY_N_OF_X_GET_K_OF_Y_FREE";
+  private final static RuleConstants RULE_NAME = RuleConstants.BUY_N_OF_X_GET_K_OF_Y_FREE_RULE;
   private final String eligibleBuyItemX;
   private final int eligibleBuyItemXQuantityN;
   private final String eligibleFreeItemY;
@@ -39,7 +39,7 @@ public class Rule4 implements DiscountRule {
   }
 
   @Override
-  public String getRuleName() {
+  public RuleConstants getRuleName() {
     return RULE_NAME;
   }
 

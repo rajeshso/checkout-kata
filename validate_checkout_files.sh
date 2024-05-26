@@ -56,64 +56,10 @@ function validate_csv() {
   echo "CSV file '$csv_file' appears to be valid."
 }
 
-# Function to validate the config file
-function validate_cfg() {
-  local cfg_file="$1"
-
-  # Check if file exists and is readable
-  if ! [[ -f "$cfg_file" && -r "$cfg_file" ]]; then
-    echo "Error: File '$cfg_file' does not exist or is not readable."
-    return 1
-  fi
-
-  # Define a regular expression for key-value pairs
-  local key_value_regex="^([a-zA-Z0-9_.]+)=(.+)$"
-
-  # Track unique rule IDs using a regular Bash array
-  declare -a rule_ids=()
-
-  # Loop through each line in the config file
-  while IFS= read -r line; do
-    # Skip empty lines and comments
-    if [[ -z "$line" || "$line" =~ ^# ]]; then
-      continue
-    fi
-
-    # Validate key-value format
-    if ! [[ "$line" =~ $key_value_regex ]]; then
-      echo "Error: Invalid key-value format in line: '$line'."
-      return 1
-    fi
-
-    # Extract key and value
-    local key="${BASH_REMATCH[1]}"
-    local value="${BASH_REMATCH[2]}"
-
-    # Check for valid rule start (rule.id=...)
-    if [[ "$key" =~ ^rule\.id= ]]; then
-      local rule_id="${value}"
-
-      # Check for duplicate rule ID
-      if [[ "${rule_ids[@]}" =~ (^| )"$rule_id($| )" ]]; then
-        echo "Error: Duplicate rule ID '$rule_id' found."
-        return 1
-      fi
-      rule_ids+=("$rule_id")
-    fi
-  done < "$cfg_file"
-
-  echo "Config file '$cfg_file' appears to be valid."
-}
-
 # Get the filenames from command line arguments
 csv_file="$1"
-cfg_file="$2"
 
 # Validate the CSV file
 validate_csv "$csv_file" || exit 1
 
-# Validate the config file
-validate_cfg "$cfg_file" || exit 1
-
-echo "Both CSV and config files appear to be valid."
 exit 0
