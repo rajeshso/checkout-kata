@@ -85,4 +85,13 @@ public class Rule4BuyNOfXGetKOfYFreeRuleCalculator implements DiscountRuleCalcul
     // Calculate the total discount
     return BigDecimal.valueOf(actualFreeItemYQuantity).multiply(unitPriceOfY);
   }
+  @Override
+  public List<String> eligibleItemsForThisRule() {
+    return List.of(eligibleBuyItemX, eligibleFreeItemY);
+  }
+
+  @Override
+  public List<Integer> eligibleGroupsForThisRule() {
+    return List.of();
+  }
 }

@@ -65,4 +65,13 @@ public class Rule3CheapestFreeInGroupRuleCalculator implements DiscountRuleCalcu
     }
     return totalDiscount;
   }
+  @Override
+  public List<String> eligibleItemsForThisRule() {
+    return List.of();
+  }
+
+  @Override
+  public List<Integer> eligibleGroupsForThisRule() {
+    return eligibleGroupForThisRule.stream().collect(Collectors.toList());
+  }
 }

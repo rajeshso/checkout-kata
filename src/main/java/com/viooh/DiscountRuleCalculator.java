@@ -6,4 +6,6 @@ import java.util.List;
 public interface DiscountRuleCalculator {
   boolean applies(List<CheckoutItem> items);
   BigDecimal calculateDiscount(List<CheckoutItem> items);
+  List<String> eligibleItemsForThisRule();
+  List<Integer> eligibleGroupsForThisRule();
 }

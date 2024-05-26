@@ -71,4 +71,13 @@ public class Rule2SpecialPriceRuleCalculator implements DiscountRuleCalculator {
     // Return the difference between the undiscounted total price and the discounted total price
     return undiscountedTotal.subtract(discountedTotal);
   }
+  @Override
+  public List<String> eligibleItemsForThisRule() {
+    return eligibleItemsForThisRule;
+  }
+
+  @Override
+  public List<Integer> eligibleGroupsForThisRule() {
+    return List.of();
+  }
 }

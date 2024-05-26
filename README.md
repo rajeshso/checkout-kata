@@ -98,3 +98,14 @@ You should not spend more than a few hours on this problem. Please provide the s
 - Please place the config_rules.cfg and promotion_rules.json files in the resources folder or the root of the project.
 - The file sizes should not be too large to fit in memory.
 - Comments are code smell because the code should be self-explanatory. Yet, I have added comments to communicate intent quicker the algorithm code to the interview panel and for discussion during the interview. The comments will be removed in the production code though.[https://refactoring.guru/smells/comments#:~:text=Comments%20are%20usually%20created%20with,code%20that%20could%20be%20improved.]
+
+## Known Issues
+
+- Logging is not implemented. I would use slf4j for logging in the next release.
+- The code is not thread-safe. I would use the singleton pattern to make the code thread-safe.
+- The actual price for every CheckoutItem is not displayed in the output. I would add this feature in the next release.
+- The input data validation is not exhaustive. I would add more data validation checks and extensive error handling in the next release.
+- The code is not optimized for performance. I would optimize the code for performance based on the deployment and traffic in the next release.
+- The code is not tested for large data sets. I would test the code for large data sets in the next release.
+- The code is tested for most edge cases but not tested for all. I would test the code for the remaining edge cases in the next release.
+- The items should not overlap in the rules. I would add a check to ensure that the items do not overlap in the rules in the next release.

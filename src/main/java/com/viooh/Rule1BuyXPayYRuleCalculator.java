@@ -48,4 +48,14 @@ public class Rule1BuyXPayYRuleCalculator implements DiscountRuleCalculator {
     // Return the total of all discounts
     return totalDiscount;
   }
+
+  @Override
+  public List<String> eligibleItemsForThisRule() {
+    return eligibleItemsForThisRule;
+  }
+
+  @Override
+  public List<Integer> eligibleGroupsForThisRule() {
+    return List.of();
+  }
 }
