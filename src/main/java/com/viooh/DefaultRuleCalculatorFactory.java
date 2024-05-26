@@ -21,24 +21,42 @@ public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
 
     try {
       if (ruleConstant.equals(BUY_X_PAY_Y_RULE)) {
-        if (args.length > 0 && args[0] instanceof List) {
-          List<String> itemIds = (List<String>) args[0];
-          return new Rule1(itemIds);
+        if (args.length > 0 && args[0] instanceof List<?>) {
+          List<?> itemIds = (List<?>) args[0];
+          if (itemIds.stream().allMatch(String.class::isInstance)) {
+            @SuppressWarnings("unchecked")// checked above
+            List<String> stringItemIds = (List<String>) itemIds;
+            return new Rule1(stringItemIds);
+          } else {
+            throw new IllegalArgumentException("Invalid argument type for BUY_X_PAY_Y_RULE");
+          }
         } else {
           throw new IllegalArgumentException("Invalid argument type for BUY_X_PAY_Y_RULE");
         }
       } else if (ruleConstant.equals(SPECIAL_PRICE_RULE)) {
-        if (args.length > 1 && args[0] instanceof List && args[1] instanceof BigDecimal) {
-          List<String> itemIds = (List<String>) args[0];
-          BigDecimal specialPrice = (BigDecimal) args[1];
-          return new Rule2(itemIds, specialPrice);
+        if (args.length > 1 && args[0] instanceof List<?> && args[1] instanceof BigDecimal) {
+          List<?> itemIds = (List<?>) args[0];
+          if (itemIds.stream().allMatch(String.class::isInstance)) {
+            @SuppressWarnings("unchecked") // checked above
+            List<String> stringItemIds = (List<String>) itemIds;
+            BigDecimal specialPrice = (BigDecimal) args[1];
+            return new Rule2(stringItemIds, specialPrice);
+          } else {
+            throw new IllegalArgumentException("Invalid argument type for SPECIAL_PRICE_RULE");
+          }
         } else {
           throw new IllegalArgumentException("Invalid argument types for SPECIAL_PRICE_RULE");
         }
       } else if (ruleConstant.equals(CHEAPEST_FREE_IN_GROUP_RULE)) {
-        if (args.length > 0 && args[0] instanceof Set) {
-          Set<Integer> groupIds = (Set<Integer>) args[0];
-          return new Rule3(groupIds);
+        if (args.length > 0 && args[0] instanceof Set<?>) {
+          Set<?> groupIds = (Set<?>) args[0];
+          if (groupIds.stream().allMatch(Integer.class::isInstance)) {
+            @SuppressWarnings("unchecked")// checked above
+            Set<Integer> integerGroupIds = (Set<Integer>) groupIds;
+            return new Rule3(integerGroupIds);
+          } else {
+            throw new IllegalArgumentException("Invalid argument type for CHEAPEST_FREE_IN_GROUP_RULE");
+          }
         } else {
           throw new IllegalArgumentException("Invalid argument type for CHEAPEST_FREE_IN_GROUP_RULE");
         }

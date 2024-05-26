@@ -18,7 +18,7 @@ class DefaultRuleCalculatorFactoryTest {
   void testCreateRuleCalculatorForBuyXPayYRule() {
     List<String> itemIds = Arrays.asList("A", "B", "C");
     DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_X_PAY_Y_RULE, itemIds);
-    assertTrue(ruleCalculator instanceof Rule1);
+    assertInstanceOf(Rule1.class, ruleCalculator);
   }
 
   @Test
@@ -26,14 +26,14 @@ class DefaultRuleCalculatorFactoryTest {
     List<String> itemIds = Arrays.asList("D", "E");
     BigDecimal specialPrice = BigDecimal.valueOf(9.99);
     DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.SPECIAL_PRICE_RULE, itemIds, specialPrice);
-    assertTrue(ruleCalculator instanceof Rule2);
+    assertInstanceOf(Rule2.class, ruleCalculator);
   }
 
   @Test
   void testCreateRuleCalculatorForCheapestFreeInGroupRule() {
     Set<Integer> groupIds = new HashSet<>(Arrays.asList(1, 2, 3));
     DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.CHEAPEST_FREE_IN_GROUP_RULE, groupIds);
-    assertTrue(ruleCalculator instanceof Rule3);
+    assertInstanceOf(Rule3.class, ruleCalculator);
   }
 
   @Test
@@ -43,7 +43,7 @@ class DefaultRuleCalculatorFactoryTest {
     String itemY = "G";
     int kToTrigger = 1;
     DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_N_OF_X_GET_K_OF_Y_FREE_RULE, itemX, nToTrigger, itemY, kToTrigger);
-    assertTrue(ruleCalculator instanceof Rule4);
+    assertInstanceOf(Rule4.class, ruleCalculator);
   }
 
   @Test
