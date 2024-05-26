@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Rule4ConstructorTest {
+public class Rule4BuyNOfXGetKOfYFreeRuleCalculatorConstructorTest {
 
   @ParameterizedTest
   @CsvFileSource(resources = "/rule4_constructor_exception_case.csv", numLinesToSkip = 1)
@@ -19,7 +19,7 @@ public class Rule4ConstructorTest {
 
     IllegalArgumentException thrown = assertThrows(
         IllegalArgumentException.class,
-        () -> new Rule4(finalEligibleBuyItemX, eligibleBuyItemXQuantityN, finalEligibleFreeItemY, eligibleFreeItemYQuantityK),
+        () -> new Rule4BuyNOfXGetKOfYFreeRuleCalculator(finalEligibleBuyItemX, eligibleBuyItemXQuantityN, finalEligibleFreeItemY, eligibleFreeItemYQuantityK),
         intent
     );
     assertEquals(exceptionMessage, thrown.getMessage(), intent);

@@ -5,20 +5,14 @@ import java.math.BigDecimal;
 import java.util.Map;
 import java.util.stream.Collectors;
 //Rule1: buy any 3 equal priced items and pay for 2
-public class Rule1 implements DiscountRule {
+public class Rule1BuyXPayYRuleCalculator implements DiscountRuleCalculator {
 
-  private final static RuleConstants RULE_NAME = RuleConstants.BUY_X_PAY_Y_RULE;
   private final static int X = 3;
 
   private final List<String> eligibleItemsForThisRule;
 
-  public Rule1(List<String> eligibleItemsForThisRule) {
+  public Rule1BuyXPayYRuleCalculator(List<String> eligibleItemsForThisRule) {
     this.eligibleItemsForThisRule = eligibleItemsForThisRule;
-  }
-
-  @Override
-  public RuleConstants getRuleName() {
-    return RULE_NAME;//Buy3PayFor2Rule
   }
 
   @Override
@@ -53,11 +47,5 @@ public class Rule1 implements DiscountRule {
 
     // Return the total of all discounts
     return totalDiscount;
-  }
-
-
-  @Override
-  public List<String> getEligibleElementsForThisRule() {
-    return eligibleItemsForThisRule;
   }
 }

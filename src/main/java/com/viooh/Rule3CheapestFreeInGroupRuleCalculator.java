@@ -8,23 +8,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 //Rule3: buy 3 (in a group of X=3 items) and the cheapest is free
-public class Rule3 implements DiscountRule {
+public class Rule3CheapestFreeInGroupRuleCalculator implements DiscountRuleCalculator {
 
-  private final static RuleConstants RULE_NAME = RuleConstants.CHEAPEST_FREE_IN_GROUP_RULE;
   private final static int X = 3;
   private final Set<Integer> eligibleGroupForThisRule;
 
-  public Rule3(Set<Integer> eligibleGroupForThisRule) {
+  public Rule3CheapestFreeInGroupRuleCalculator(Set<Integer> eligibleGroupForThisRule) {
     if (eligibleGroupForThisRule == null || eligibleGroupForThisRule.isEmpty()) {
       throw new IllegalArgumentException("Eligible group for this rule cannot be null or empty");
     }
     this.eligibleGroupForThisRule = eligibleGroupForThisRule;
-  }
-
-
-  @Override
-  public RuleConstants getRuleName() {
-    return RULE_NAME;
   }
 
   @Override
@@ -71,10 +64,5 @@ public class Rule3 implements DiscountRule {
       totalDiscount = totalDiscount.add(totalDiscountOfGroup);//Sum up the discounts across all groups
     }
     return totalDiscount;
-  }
-
-  @Override
-  public List<String> getEligibleElementsForThisRule() {
-    return eligibleGroupForThisRule.stream().map(String::valueOf).collect(Collectors.toList());
   }
 }

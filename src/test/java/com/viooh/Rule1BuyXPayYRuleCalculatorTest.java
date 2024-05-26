@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class Rule1Test {
+public class Rule1BuyXPayYRuleCalculatorTest {
   private static final List<String> eligibleItemsForThisRule = Arrays.asList("item1", "item2");
 
   private static Stream<TestData> provideTestData() {
@@ -84,11 +84,11 @@ public class Rule1Test {
   @MethodSource("provideTestData")
   public void testApplies(TestData testData) {
     // Arrange
-    Rule1 rule1 = new Rule1(testData.ruleItems);
+    Rule1BuyXPayYRuleCalculator rule1BuyXPayYRuleCalculator = new Rule1BuyXPayYRuleCalculator(testData.ruleItems);
     List<CheckoutItem> items = new ArrayList<>(testData.checkoutItems);
 
     // Act
-    boolean applies = rule1.applies(items);
+    boolean applies = rule1BuyXPayYRuleCalculator.applies(items);
 
     // Assert
     if (testData.expectedApplies) {
@@ -102,11 +102,11 @@ public class Rule1Test {
   @MethodSource("provideTestData")
   public void testCalculateDiscount(TestData testData) {
     // Arrange
-    Rule1 rule1 = new Rule1(testData.ruleItems);
+    Rule1BuyXPayYRuleCalculator rule1BuyXPayYRuleCalculator = new Rule1BuyXPayYRuleCalculator(testData.ruleItems);
     List<CheckoutItem> items = new ArrayList<>(testData.checkoutItems);
 
     // Act
-    BigDecimal discount = rule1.calculateDiscount(items);
+    BigDecimal discount = rule1BuyXPayYRuleCalculator.calculateDiscount(items);
 
     // Assert
     assertEquals(testData.expectedDiscount, discount, testData.discountMessage);

@@ -12,14 +12,13 @@ import java.util.stream.Collectors;
  * For each N items X: This means customer need to buy a specific number of items (N) of a particular product (X).
  * Customer get K items Y for free: Upon purchasing N items of X, customer can get another product (Y) completely free of charge. customer receive K number of free items Y.
  */
-public class Rule4 implements DiscountRule {
-  private final static RuleConstants RULE_NAME = RuleConstants.BUY_N_OF_X_GET_K_OF_Y_FREE_RULE;
+public class Rule4BuyNOfXGetKOfYFreeRuleCalculator implements DiscountRuleCalculator {
   private final String eligibleBuyItemX;
   private final int eligibleBuyItemXQuantityN;
   private final String eligibleFreeItemY;
   private final int eligibleFreeItemYQuantityK;
 
-  public Rule4(String eligibleBuyItemX, int eligibleBuyItemXQuantityN, String eligibleFreeItemY, int eligibleFreeItemYQuantityK) {
+  public Rule4BuyNOfXGetKOfYFreeRuleCalculator(String eligibleBuyItemX, int eligibleBuyItemXQuantityN, String eligibleFreeItemY, int eligibleFreeItemYQuantityK) {
     if (eligibleBuyItemX == null || eligibleBuyItemX.trim().isEmpty()) {
       throw new IllegalArgumentException("eligibleBuyItemX cannot be null or empty");
     }
@@ -36,11 +35,6 @@ public class Rule4 implements DiscountRule {
     this.eligibleBuyItemXQuantityN = eligibleBuyItemXQuantityN;
     this.eligibleFreeItemY = eligibleFreeItemY;
     this.eligibleFreeItemYQuantityK = eligibleFreeItemYQuantityK;
-  }
-
-  @Override
-  public RuleConstants getRuleName() {
-    return RULE_NAME;
   }
 
   @Override
@@ -90,10 +84,5 @@ public class Rule4 implements DiscountRule {
 
     // Calculate the total discount
     return BigDecimal.valueOf(actualFreeItemYQuantity).multiply(unitPriceOfY);
-  }
-
-  @Override
-  public List<String> getEligibleElementsForThisRule() {
-    return List.of(eligibleBuyItemX, eligibleFreeItemY);
   }
 }

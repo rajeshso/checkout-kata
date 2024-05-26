@@ -10,7 +10,7 @@ import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Rule3ConstructorTest {
+public class Rule3CheapestFreeInGroupRuleCalculatorConstructorTest {
 
   @ParameterizedTest
   @CsvFileSource(resources = "/rule3_constructor_exception_case.csv", numLinesToSkip = 1)
@@ -22,7 +22,7 @@ public class Rule3ConstructorTest {
 
     IllegalArgumentException thrown = assertThrows(
         IllegalArgumentException.class,
-        () -> new Rule3(eligibleGroupForThisRule),
+        () -> new Rule3CheapestFreeInGroupRuleCalculator(eligibleGroupForThisRule),
         intent
     );
     assertEquals(exceptionMessage, thrown.getMessage(), intent);

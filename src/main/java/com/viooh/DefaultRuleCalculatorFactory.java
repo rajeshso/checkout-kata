@@ -11,7 +11,7 @@ import java.util.Set;
 
 public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
   @Override
-  public DiscountRule createRuleCalculator(RuleConstants ruleConstant, Object... args) {
+  public DiscountRuleCalculator createRuleCalculator(RuleConstants ruleConstant, Object... args) {
     if (ruleConstant == null) {
       throw new IllegalArgumentException("Rule constant cannot be null");
     }
@@ -26,7 +26,7 @@ public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
           if (itemIds.stream().allMatch(String.class::isInstance)) {
             @SuppressWarnings("unchecked")// checked above
             List<String> stringItemIds = (List<String>) itemIds;
-            return new Rule1(stringItemIds);
+            return new Rule1BuyXPayYRuleCalculator(stringItemIds);
           } else {
             throw new IllegalArgumentException("Invalid argument type for BUY_X_PAY_Y_RULE");
           }
@@ -40,7 +40,7 @@ public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
             @SuppressWarnings("unchecked") // checked above
             List<String> stringItemIds = (List<String>) itemIds;
             BigDecimal specialPrice = (BigDecimal) args[1];
-            return new Rule2(stringItemIds, specialPrice);
+            return new Rule2SpecialPriceRuleCalculator(stringItemIds, specialPrice);
           } else {
             throw new IllegalArgumentException("Invalid argument type for SPECIAL_PRICE_RULE");
           }
@@ -53,7 +53,7 @@ public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
           if (groupIds.stream().allMatch(Integer.class::isInstance)) {
             @SuppressWarnings("unchecked")// checked above
             Set<Integer> integerGroupIds = (Set<Integer>) groupIds;
-            return new Rule3(integerGroupIds);
+            return new Rule3CheapestFreeInGroupRuleCalculator(integerGroupIds);
           } else {
             throw new IllegalArgumentException("Invalid argument type for CHEAPEST_FREE_IN_GROUP_RULE");
           }
@@ -66,7 +66,7 @@ public class DefaultRuleCalculatorFactory implements RuleCalculatorFactory {
           int nToTrigger = (int) args[1];
           String itemY = (String) args[2];
           int kToTrigger = (int) args[3];
-          return new Rule4(itemX, nToTrigger, itemY, kToTrigger);
+          return new Rule4BuyNOfXGetKOfYFreeRuleCalculator(itemX, nToTrigger, itemY, kToTrigger);
         } else {
           throw new IllegalArgumentException("Invalid argument types for BUY_N_OF_X_GET_K_OF_Y_FREE_RULE");
         }

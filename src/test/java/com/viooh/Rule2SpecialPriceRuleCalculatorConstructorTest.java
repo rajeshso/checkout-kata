@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Rule2ConstructorTest {
+public class Rule2SpecialPriceRuleCalculatorConstructorTest {
 
   @ParameterizedTest
   @CsvFileSource(resources = "/rule2_constructor_exception_case.csv", numLinesToSkip = 1)
@@ -23,7 +23,7 @@ public class Rule2ConstructorTest {
 
     IllegalArgumentException thrown = assertThrows(
         IllegalArgumentException.class,
-        () -> new Rule2(eligibleItemsForRule, specialPricePerUnit),
+        () -> new Rule2SpecialPriceRuleCalculator(eligibleItemsForRule, specialPricePerUnit),
         intent
     );
     assertEquals(exceptionMessage, thrown.getMessage(), intent);

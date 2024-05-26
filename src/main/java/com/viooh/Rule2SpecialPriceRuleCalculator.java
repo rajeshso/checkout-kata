@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.util.List;
 
 // Rule2: buy 2 equal priced items for a special price
-public class Rule2 implements DiscountRule {
+public class Rule2SpecialPriceRuleCalculator implements DiscountRuleCalculator {
   private static final RuleConstants RULE_NAME = RuleConstants.SPECIAL_PRICE_RULE;
   private static final int X = 2;
   private final List<String> eligibleItemsForThisRule;
   private final BigDecimal specialPricePerUnit;
 
-  public Rule2(List<String> eligibleItemsForThisRule, BigDecimal specialPricePerUnit) {
+  public Rule2SpecialPriceRuleCalculator(List<String> eligibleItemsForThisRule, BigDecimal specialPricePerUnit) {
     // Check if the eligibleItemsForThisRule is not empty, if it is throw an IllegalArgumentException
     if (eligibleItemsForThisRule == null || eligibleItemsForThisRule.isEmpty()) {
       throw new IllegalArgumentException("eligibleItemsForThisRule cannot be null or empty");
@@ -21,11 +21,6 @@ public class Rule2 implements DiscountRule {
     }
     this.eligibleItemsForThisRule = eligibleItemsForThisRule;
     this.specialPricePerUnit = specialPricePerUnit;
-  }
-
-  @Override
-  public RuleConstants getRuleName() {
-    return RULE_NAME;
   }
 
   @Override
@@ -75,10 +70,5 @@ public class Rule2 implements DiscountRule {
 
     // Return the difference between the undiscounted total price and the discounted total price
     return undiscountedTotal.subtract(discountedTotal);
-  }
-
-  @Override
-  public List<String> getEligibleElementsForThisRule() {
-    return eligibleItemsForThisRule;
   }
 }

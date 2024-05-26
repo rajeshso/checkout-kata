@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class Rule3Test {
+class Rule3CheapestFreeInGroupRuleCalculatorTest {
 
   @DisplayName("All positive tests for Rule3 applies")
   @ParameterizedTest
@@ -18,7 +18,7 @@ class Rule3Test {
   void testAppliesPositive(String checkoutItemsStr, String eligibleGroupStr, boolean expectedResult, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
     Set<Integer> eligibleGroup = parseEligibleGroup(eligibleGroupStr);
-    Rule3 rule = new Rule3(eligibleGroup);
+    Rule3CheapestFreeInGroupRuleCalculator rule = new Rule3CheapestFreeInGroupRuleCalculator(eligibleGroup);
 
     assertEquals(expectedResult, rule.applies(checkoutItems), intent);
   }
@@ -29,7 +29,7 @@ class Rule3Test {
   void testAppliesNegative(String checkoutItemsStr, String eligibleGroupStr, String exceptionMessage, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
     Set<Integer> eligibleGroup = parseEligibleGroup(eligibleGroupStr);
-    Rule3 rule = new Rule3(eligibleGroup);
+    Rule3CheapestFreeInGroupRuleCalculator rule = new Rule3CheapestFreeInGroupRuleCalculator(eligibleGroup);
     boolean actualResult = rule.applies(checkoutItems);
     assertFalse(actualResult, exceptionMessage+" - "+intent);
   }
@@ -39,7 +39,7 @@ class Rule3Test {
   @CsvFileSource(resources = "/rule3_calculate_discount_positive_case.csv", numLinesToSkip = 1)
   void testCalculateDiscountPositive(String checkoutItemsStr, BigDecimal expectedResult, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
-    Rule3 rule = new Rule3(Set.of(1));
+    Rule3CheapestFreeInGroupRuleCalculator rule = new Rule3CheapestFreeInGroupRuleCalculator(Set.of(1));
 
     BigDecimal actualResult = rule.calculateDiscount(checkoutItems);
     assertEquals(expectedResult, actualResult, intent);
@@ -50,7 +50,7 @@ class Rule3Test {
   @CsvFileSource(resources = "/rule3_calculate_discount_negative_case.csv", numLinesToSkip = 1)
   void testCalculateDiscountNegative(String checkoutItemsStr, String exceptionMessage, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
-    Rule3 rule = new Rule3(Set.of(1));
+    Rule3CheapestFreeInGroupRuleCalculator rule = new Rule3CheapestFreeInGroupRuleCalculator(Set.of(1));
 
     final BigDecimal discount = rule.calculateDiscount(checkoutItems);
     assertEquals(BigDecimal.ZERO, discount, exceptionMessage+" - "+intent);

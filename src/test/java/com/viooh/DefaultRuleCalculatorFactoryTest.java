@@ -17,23 +17,23 @@ class DefaultRuleCalculatorFactoryTest {
   @Test
   void testCreateRuleCalculatorForBuyXPayYRule() {
     List<String> itemIds = Arrays.asList("A", "B", "C");
-    DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_X_PAY_Y_RULE, itemIds);
-    assertInstanceOf(Rule1.class, ruleCalculator);
+    DiscountRuleCalculator ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_X_PAY_Y_RULE, itemIds);
+    assertInstanceOf(Rule1BuyXPayYRuleCalculator.class, ruleCalculator);
   }
 
   @Test
   void testCreateRuleCalculatorForSpecialPriceRule() {
     List<String> itemIds = Arrays.asList("D", "E");
     BigDecimal specialPrice = BigDecimal.valueOf(9.99);
-    DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.SPECIAL_PRICE_RULE, itemIds, specialPrice);
-    assertInstanceOf(Rule2.class, ruleCalculator);
+    DiscountRuleCalculator ruleCalculator = factory.createRuleCalculator(RuleConstants.SPECIAL_PRICE_RULE, itemIds, specialPrice);
+    assertInstanceOf(Rule2SpecialPriceRuleCalculator.class, ruleCalculator);
   }
 
   @Test
   void testCreateRuleCalculatorForCheapestFreeInGroupRule() {
     Set<Integer> groupIds = new HashSet<>(Arrays.asList(1, 2, 3));
-    DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.CHEAPEST_FREE_IN_GROUP_RULE, groupIds);
-    assertInstanceOf(Rule3.class, ruleCalculator);
+    DiscountRuleCalculator ruleCalculator = factory.createRuleCalculator(RuleConstants.CHEAPEST_FREE_IN_GROUP_RULE, groupIds);
+    assertInstanceOf(Rule3CheapestFreeInGroupRuleCalculator.class, ruleCalculator);
   }
 
   @Test
@@ -42,8 +42,8 @@ class DefaultRuleCalculatorFactoryTest {
     int nToTrigger = 3;
     String itemY = "G";
     int kToTrigger = 1;
-    DiscountRule ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_N_OF_X_GET_K_OF_Y_FREE_RULE, itemX, nToTrigger, itemY, kToTrigger);
-    assertInstanceOf(Rule4.class, ruleCalculator);
+    DiscountRuleCalculator ruleCalculator = factory.createRuleCalculator(RuleConstants.BUY_N_OF_X_GET_K_OF_Y_FREE_RULE, itemX, nToTrigger, itemY, kToTrigger);
+    assertInstanceOf(Rule4BuyNOfXGetKOfYFreeRuleCalculator.class, ruleCalculator);
   }
 
   @Test

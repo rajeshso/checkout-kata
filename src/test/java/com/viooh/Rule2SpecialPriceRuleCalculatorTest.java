@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class Rule2Test {
+class Rule2SpecialPriceRuleCalculatorTest {
 
   @DisplayName("All positive tests for Rule2 calculate discount")
   @ParameterizedTest
@@ -24,9 +24,9 @@ class Rule2Test {
     BigDecimal specialPrice = new BigDecimal(specialPriceStr);
     BigDecimal expectedDiscount = new BigDecimal(expectedDiscountStr);
 
-    Rule2 rule2 = new Rule2(eligibleItems, specialPrice);
+    Rule2SpecialPriceRuleCalculator rule2SpecialPriceRuleCalculator = new Rule2SpecialPriceRuleCalculator(eligibleItems, specialPrice);
 
-    BigDecimal discount = rule2.calculateDiscount(checkoutItems);
+    BigDecimal discount = rule2SpecialPriceRuleCalculator.calculateDiscount(checkoutItems);
 
     assertEquals(expectedDiscount, discount, intent);
   }
@@ -40,8 +40,8 @@ class Rule2Test {
     BigDecimal specialPrice = new BigDecimal(specialPriceStr);
 
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      Rule2 rule2 = new Rule2(eligibleItems, specialPrice);
-      rule2.calculateDiscount(checkoutItems);
+      Rule2SpecialPriceRuleCalculator rule2SpecialPriceRuleCalculator = new Rule2SpecialPriceRuleCalculator(eligibleItems, specialPrice);
+      rule2SpecialPriceRuleCalculator.calculateDiscount(checkoutItems);
     });
 
     assertEquals(exceptionMessage, exception.getMessage(), intent);
@@ -53,7 +53,7 @@ class Rule2Test {
   void testAppliesPositive(String checkoutItemsStr, String eligibleItemsStr, BigDecimal specialPricePerUnit, boolean expectedResult, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
     List<String> eligibleItems = parseEligibleItems(eligibleItemsStr);
-    Rule2 rule = new Rule2(eligibleItems, specialPricePerUnit);
+    Rule2SpecialPriceRuleCalculator rule = new Rule2SpecialPriceRuleCalculator(eligibleItems, specialPricePerUnit);
     assertTrue(expectedResult);
     assertTrue(rule.applies(checkoutItems), intent);
   }
@@ -66,7 +66,7 @@ class Rule2Test {
     List<String> eligibleItems = parseEligibleItems(eligibleItemsStr);
 
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      Rule2 rule = new Rule2(eligibleItems, specialPricePerUnit);
+      Rule2SpecialPriceRuleCalculator rule = new Rule2SpecialPriceRuleCalculator(eligibleItems, specialPricePerUnit);
       rule.applies(checkoutItems);
     });
 

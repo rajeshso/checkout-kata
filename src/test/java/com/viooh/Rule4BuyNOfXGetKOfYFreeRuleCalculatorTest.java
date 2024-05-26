@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class Rule4Test {
+public class Rule4BuyNOfXGetKOfYFreeRuleCalculatorTest {
 
   private List<CheckoutItem> parseCheckoutItems(String checkoutItemsStr) {
     return Arrays.stream(checkoutItemsStr.split(";"))
@@ -27,7 +27,7 @@ public class Rule4Test {
   @CsvFileSource(resources = "/rule4_applies_positive_case.csv", numLinesToSkip = 1)
   void testAppliesPositive(String checkoutItemsStr, String eligibleBuyItemX, int eligibleBuyItemXQuantityN, String eligibleFreeItemY, int eligibleFreeItemYQuantityK, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
-    Rule4 rule = new Rule4(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
+    Rule4BuyNOfXGetKOfYFreeRuleCalculator rule = new Rule4BuyNOfXGetKOfYFreeRuleCalculator(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
     boolean actualResult = rule.applies(checkoutItems);
     assertTrue(actualResult, intent);
   }
@@ -36,7 +36,7 @@ public class Rule4Test {
   @CsvFileSource(resources = "/rule4_applies_negative_case.csv", numLinesToSkip = 1)
   void testAppliesNegative(String checkoutItemsStr, String eligibleBuyItemX, int eligibleBuyItemXQuantityN, String eligibleFreeItemY, int eligibleFreeItemYQuantityK, String exceptionMessage, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
-    Rule4 rule = new Rule4(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
+    Rule4BuyNOfXGetKOfYFreeRuleCalculator rule = new Rule4BuyNOfXGetKOfYFreeRuleCalculator(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
     boolean actualResult = rule.applies(checkoutItems);
     assertFalse(actualResult, exceptionMessage + " - " + intent);
   }
@@ -45,7 +45,7 @@ public class Rule4Test {
   @CsvFileSource(resources = "/rule4_calculate_discount_case.csv", numLinesToSkip = 1)
   void testCalculateDiscount(String checkoutItemsStr, String eligibleBuyItemX, int eligibleBuyItemXQuantityN, String eligibleFreeItemY, int eligibleFreeItemYQuantityK, BigDecimal expectedDiscount, String intent) {
     List<CheckoutItem> checkoutItems = parseCheckoutItems(checkoutItemsStr);
-    Rule4 rule = new Rule4(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
+    Rule4BuyNOfXGetKOfYFreeRuleCalculator rule = new Rule4BuyNOfXGetKOfYFreeRuleCalculator(eligibleBuyItemX, eligibleBuyItemXQuantityN, eligibleFreeItemY, eligibleFreeItemYQuantityK);
     BigDecimal actualDiscount = rule.calculateDiscount(checkoutItems);
     assertEquals(expectedDiscount, actualDiscount, intent);
   }
