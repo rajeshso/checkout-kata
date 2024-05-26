@@ -1,0 +1,7 @@
+eligibleBuyItemX,eligibleBuyItemXQuantityN,eligibleFreeItemY,eligibleFreeItemYQuantityK,exceptionMessage,intent
+null,3,item2,3,"eligibleBuyItemX cannot be null or empty","Null eligibleBuyItemX"
+"",3,item2,1,"eligibleBuyItemX cannot be null or empty","Empty eligibleBuyItemX"
+item1,0,item2,1,"eligibleBuyItemXQuantityN must be greater than zero","Non-positive eligibleBuyItemXQuantityN"
+item1,3,null,1,"eligibleFreeItemY cannot be null or empty","Null eligibleFreeItemY"
+item1,3,"",1,"eligibleFreeItemY cannot be null or empty","Empty eligibleFreeItemY"
+item1,3,item2,0,"eligibleFreeItemYQuantityK must be greater than zero","Non-positive eligibleFreeItemYQuantityK"

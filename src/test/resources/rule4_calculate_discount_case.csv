@@ -1,0 +1,6 @@
+checkoutItems,eligibleBuyItemX,eligibleBuyItemXQuantityN,eligibleFreeItemY,eligibleFreeItemYQuantityK,expectedDiscount,intent
+item1:1:3:10.00;item2:2:1:5.00,item1,3,item2,1,5.00,"One free item Y for every three items X"
+item1:1:6:10.00;item2:2:2:5.00,item1,3,item2,1,10.00,"Two free items Y for six items X"
+item1:1:9:10.00;item2:2:3:5.00,item1,3,item2,1,15.00,"Three free items Y for nine items X"
+item1:1:3:10.00;item2:2:5:5.00,item1,3,item2,1,5.00,"One free item Y with excess free items Y"
+item1:1:4:10.00;item2:2:2:5.00,item1,3,item2,1,5.00,"Four items X but only three count towards discount"
