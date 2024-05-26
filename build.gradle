@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'com.viooh'
@@ -21,9 +22,13 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation("org.assertj:assertj-core:3.25.1")
-
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.12.0'
 }
 
 test {
     useJUnitPlatform()
+}
+
+application {
+    mainClassName = 'com.viooh.Main'
 }

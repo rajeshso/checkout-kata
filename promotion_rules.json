@@ -2,14 +2,14 @@
   "buyXPayYRules": [
     {
       "id": 1,
-      "itemIds": ["E", "F"],
+      "itemIds": ["A", "B"],
       "triggerQuantity": 3,
       "discountQuantity": 1,
       "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
     },
     {
       "id": 2,
-      "itemIds": ["E", "F"],
+      "itemIds": ["C", "D"],
       "triggerQuantity": 3,
       "discountQuantity": 1,
       "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
@@ -24,7 +24,7 @@
     },
     {
       "id": 2,
-      "itemIds": ["E", "F"],
+      "itemIds": ["G", "H"],
       "specialPrice": 10.00,
       "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
     }
@@ -32,15 +32,15 @@
   "cheapestFreeInGroupRules": [
     {
       "id": 3,
-      "groupId": 3,
-      "comment": "This belongs to Rule3: Buy 3 of A, B, C, D and get the cheapest free."
+      "groupId": 5,
+      "comment": "This belongs to Rule3: Buy 3 of F and get the cheapest free."
     }
   ],
   "buyNOfXGetKOfYFreeRules": [
     {
       "id": 4,
-      "itemX": "A",
-      "itemY": "B",
+      "itemX": "I",
+      "itemY": "J",
       "ntoTrigger": 3,
       "ktoTrigger": 1,
       "comment": "Example is Buy 3(N) bottles of water (X) and get 1(K) soda (Y) for free (N = 3, X=Water, K = 1, Y=Soda). This belongs to Rule4: for each N items X, you get K items Y for free"

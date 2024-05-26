@@ -1,27 +1,33 @@
 package com.viooh;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+  private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
   public static void main(String[] args) {
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    System.out.printf("Hello and welcome!");
+    System.out.println("Hello and welcome!");
 
-    for (int i = 1; i <= 5; i++) {
-      //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-      // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-      System.out.println("i = " + i);
-    }
     try {
-      final List<CheckoutItem> checkoutItems = CheckoutItemParser.parseCheckoutItems(
-          "checkoutItems1.csv");
+      // Parse checkout items from a CSV file
+      final List<CheckoutItem> checkoutItems = CheckoutItemParser.parseCheckoutItems("checkoutItems1.csv");
+
+      // Initialize the CheckoutController
+      CheckoutController checkoutController = new CheckoutController();
+
+      // Perform the checkout operation
+      final BigDecimal grandTotalPrice = checkoutController.checkout(checkoutItems);
+
+      // Output the results
       System.out.println("checkoutItems = " + checkoutItems);
+      System.out.println("grandTotalPrice = " + grandTotalPrice);
+
     } catch (Exception e) {
-      throw new RuntimeException(e);
+      // Handle any exceptions that occur during the process
+      LOGGER.log(Level.SEVERE, "An error occurred during checkout", e);
     }
   }
 }

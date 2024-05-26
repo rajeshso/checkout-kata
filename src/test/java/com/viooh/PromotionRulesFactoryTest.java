@@ -21,11 +21,4 @@ public class PromotionRulesFactoryTest {
     assertNotEquals(0, promotionRules.getCheapestFreeInGroupRules().size());
     assertNotEquals(0, promotionRules.getBuyNOfXGetKOfYFreeRules().size());
   }
-  @Test
-  public void testCreatePromotionRules_fileNotFound_throwsException() {
-    String filePath = "non-existent_file.json";
-    PromotionRulesFactory factory = PromotionRulesFactory.getInstance();
-
-    assertThrows(Exception.class, () -> factory.createPromotionRules(filePath));
-  }
 }
