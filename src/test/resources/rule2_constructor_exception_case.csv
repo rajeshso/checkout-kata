@@ -1,0 +1,4 @@
+eligibleItemsForRule,specialPricePerUnit,exceptionMessage,intent
+null,5.00,"eligibleItemsForThisRule cannot be null or empty","Null eligibleItemsForRule"
+,5.00,"eligibleItemsForThisRule cannot be null or empty","Empty eligibleItemsForRule"
+item1;item2,-1.00,"SpecialPricePerUnit must be greater than zero","Non-positive specialPricePerUnit"

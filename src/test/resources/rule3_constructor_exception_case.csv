@@ -1,0 +1,3 @@
+eligibleGroupForThisRule,exceptionMessage,intent
+null,"Eligible group for this rule cannot be null or empty","Null eligibleGroupForThisRule"
+,"Eligible group for this rule cannot be null or empty","Empty eligibleGroupForThisRule"
