@@ -5,14 +5,14 @@
       "itemIds": ["A", "B"],
       "triggerQuantity": 3,
       "discountQuantity": 1,
-      "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+      "comment": "Buy 3 of A or B and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
     },
     {
       "id": 2,
       "itemIds": ["C", "D"],
       "triggerQuantity": 3,
       "discountQuantity": 1,
-      "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+      "comment": "Buy 3 of C or D and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
     }
   ],
   "specialPriceRules": [
@@ -26,14 +26,14 @@
       "id": 2,
       "itemIds": ["G", "H"],
       "specialPrice": 10.00,
-      "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
+      "comment": "Special price for G and H is £10.00. This belongs to Rule2: Special price for item G and H."
     }
   ],
   "cheapestFreeInGroupRules": [
     {
       "id": 3,
       "groupId": 5,
-      "comment": "This belongs to Rule3: Buy 3 of F and get the cheapest free."
+      "comment": "This belongs to Rule3: Buy 3 of 5 and get the cheapest free."
     }
   ],
   "buyNOfXGetKOfYFreeRules": [

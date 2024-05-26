@@ -19,169 +19,150 @@ The code should be simple and flexible so that any new rule should be added with
 
 You should not spend more than a few hours on this problem. Please provide the source code along with `README.md` instructions on how to build/test/run the system. If you have any questions, feel free to open a Github Issue. **When you have completed the challenge please submit a Pull Request.**
 
-# Solution 
+# Solution Overview
 
-## Notes
-- The input files are in CSV format and CFG file in properties format.
-- ```shell 
-   chmod +x validate_checkout_files.sh 
-  ```
-- use this command to validate the checkout files. The script does few data sanity checks, but is not exhaustive enough.
-  ```shell
-    ./validate_checkout_files.sh <checkout_items.csv>
+## Input Files
+
+- **checkout_items.csv**: Contains cart items with columns for item-id, group-id, quantity, and unit-price.
+- **promotion_rules.json**: Defines discount rules in JSON format (see example below).
+
+## Validation Script
+
+**validate_checkout_files.sh**: This script performs basic data sanity checks on the input files. You can run it using:
+
+```bash
+chmod +x validate_checkout_files.sh
+./validate_checkout_files.sh <checkout_items.csv>
+```
+## Discount Rule Types
+The promotion_rules.json file defines four types of discount rules:
+
+1. buyXPayYRules: Offers a discount when a specific quantity of items is purchased (e.g., buy 3 of item X, pay for 2).
+2. specialPriceRules: Sets a special price for a particular item or group of items.
+3. cheapestFreeInGroupRules: Offers the cheapest item in a group for free when a certain quantity is purchased.
+4. buyNOfXGetKOfYFreeRules: Provides a free item (Y) for every N items purchased of another item (X).
+
+## Code Structure
+The code is designed for modularity and easy addition of new rules. Here's a breakdown of the key components:
+
+### Rule Configuration
+1. PromotionalRules: POJOs representing the JSON configuration for discount rules.
+2. PromotionalRulesFactory: Reads the promotion_rules.json file and creates the configuration object.
+
+### Discount Calculation
+1. DiscountCalculator: Interface for calculating discounts based on rule type.
+2. Specific implementations for each rule type (e.g., BuyXPayYDiscountCalculator).
+3. DiscountCalculatorFactory: Creates the appropriate DiscountCalculator based on the rule type.
+
+### Checkout
+1. CheckoutItem: Represents an item in the cart with its details.
+2. CheckoutController: Calculates the total price and applies discount rules.
+3. CheckoutService: Calculates the final price after applying discounts.
+4. Dependency injection is used for testability and flexibility.
+
+## Building, Testing, and Running the System
+### Prerequisites
+1. Java 11 installed (https://www.oracle.com/java/technologies/downloads/)
+2. Gradle installed (https://gradle.org/install/)
+
+### Instructions
+1. Navigate to the project directory in your terminal.
+
+2. Build and Test: Run the following command to build the application and execute unit tests:
+    ```bash
+   ./gradlew build
     ```
-- The input files are validated for the following conditions:
-- The checkout_items.csv file should have the following columns:
-  - item-id
-  - group-id
-  - quantity
-  - unit-price
-- The config_rules.json file should have the following properties:
-        ```json
-        {
-          "buyXPayYRules": [
-                {
-                "id": 1,
-                "itemIds": ["E", "F"],
-                "triggerQuantity": 3,
-                "discountQuantity": 1,
-                "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
-                },
-                {
-                "id": 2,
-                "itemIds": ["E", "F"],
-                "triggerQuantity": 3,
-                "discountQuantity": 1,
-                "comment": "Buy 3 of E or F and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
-                }
-          ],
-          "specialPriceRules": [
-                {
-                "id": 21,
-                "itemIds": ["E", "F"],
-                "specialPrice": 10.00,
-                "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
-                },
-                {
-                "id": 2,
-                "itemIds": ["E", "F"],
-                "specialPrice": 10.00,
-                "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
-                }
-          ],
-          "cheapestFreeInGroupRules": [
-                {
-          "id": 3,
-          "groupId": 3,
-          "comment": "This belongs to Rule3: Buy 3 of A, B, C, D and get the cheapest free."
-          }
-          ],
-          "buyNOfXGetKOfYFreeRules": [
-                {
-          "id": 4,
-          "itemX": "A",
-          "itemY": "B",
-          "ntoTrigger": 3,
-          "ktoTrigger": 1,
-          "comment": "Example is Buy 3(N) bottles of water (X) and get 1(K) soda (Y) for free (N = 3, X=Water, K = 1, Y=Soda). This belongs to Rule4: for each N items X, you get K items Y for free"
-          }
-          ]
-        }
-        ```
-      - Please use the format for rules as in the promotion_rules.json files. The rules are categorized into 4 types:
-        - buyXPayYRules
-        - specialPriceRules
-        - cheapestFreeInGroupRules
-        - buyNOfXGetKOfYFreeRules
-      - By default, the promotion_rules.json file in the root is used in the code. But you can create and configure any file path in the code.
-      - The reason for individual rules is to make the code flexible and easy to add new rules that adhere to Type safety.
-- Please place the config_rules.cfg and promotion_rules.json files in the resources folder or the root of the project.
-- The file sizes should not be too large to fit in memory.
-- Comments are code smell because the code should be self-explanatory. Yet, I have added comments to communicate intent quicker the algorithm code to the interview panel and for discussion during the interview. The comments will be removed in the production code though.[https://refactoring.guru/smells/comments#:~:text=Comments%20are%20usually%20created%20with,code%20that%20could%20be%20improved.]
+3. Run the Application: Execute this command to run the application with sample data:
+   ```bash
+   ./gradlew run
+   ```
+   This will use the built application and sample data to simulate a cart with items and discount rules. The final receipt will be printed on the console.
 
-### Design
+### Notes
+1. The provided commands assume Linux/macOS. For Windows, use ```gradlew.bat``` instead of ```./gradlew```.
+2. These instructions assume the Gradle wrapper scripts (gradlew or gradlew.bat) are present in the project directory.
 
-- The code is designed to be modular and flexible to add new rules with minimal effort.
-The code is classified as rule configuration, rule calculation, checkout and utility classes
-- Rule Configuration: The code reads the promotion_rules.json file and creates a configuration object with the rules. The rules are categorized into 4 types: buyXPayYRules, specialPriceRules, cheapestFreeInGroupRules, and buyNOfXGetKOfYFreeRules. 
-  - The Promotional Rules contains the pojos that map to the json configuration file.
-  - The Promotional Rules Factory is the factory class that reads the json file and creates the configuration object.
-  - If you want to add a new Rule, you can create a new class and add it to the factory.
-- Discount Calculation: The code calculates the discount for each item based on the rules. The discount is calculated based on the type of rule and the item quantity.
-  - There are four types of rules: buyXPayYRules, specialPriceRules, cheapestFreeInGroupRules, and buyNOfXGetKOfYFreeRules.
-  - There are four types of Discount Calculators: BuyXPayYDiscountCalculator, SpecialPriceDiscountCalculator, CheapestFreeInGroupDiscountCalculator, and BuyNOfXGetKOfYFreeDiscountCalculator.
-  - The Discount Calculator Factory creates the appropriate Discount Calculator based on the rule type.
-  - If you want to add a new Rule and Discount Calculator, you can create a new class that implements the DiscountCalculator interface and add it to the factory.
-- Checkout: The code reads the checkout_items.csv file and calculates the total price of the items in the cart. The code applies the discount rules to the items and calculates the final price.
-    - The CheckoutItem class represents an item in the cart with the item-id, group-id, quantity, and unit price.
-    - The CheckoutController class calculates the total price of the items in the cart and applies the discount rules.
-    - The CheckoutService class calculates the final price of the items in the cart after applying the discount rules.
-    - The Dependency injection are used in every class to make the code testable and flexible.
-- Utility: The code contains utility classes for reading CSV files, JSON files, and calculating the total price.
-    - The CheckoutParser class reads the checkout_items.csv file, creates CheckoutItem objects.
-    - The Promotion Rules Factory class reads the promotion_rules.json file, creates PromotionalRules objects.
 ## Known Issues
+1. Actual item prices are not displayed in the output.
+2. Input data validation is not exhaustive.
+3. The code is not optimized for performance or large datasets.
+4. Items should not overlap in discount rules.
+5. Ideally, classes should be grouped by functionality (rule configuration, calculation, checkout, etc.).
 
-- The actual price for every CheckoutItem is not displayed in the output. 
-- The input data validation is not exhaustive.
-- The code is not optimized for performance. 
-- The code is not tested for large data sets. 
-- The items should not overlap in the rules. 
-- The classes should ideally be packaged into - rule configuration, rule calculation, checkout and utility classes. 
+## Example Promotion Rules Configuration
+```json
+{
+   "buyXPayYRules": [
+      {
+         "id": 1,
+         "itemIds": ["A", "B"],
+         "triggerQuantity": 3,
+         "discountQuantity": 1,
+         "comment": "Buy 3 of A or B and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+      },
+      {
+         "id": 2,
+         "itemIds": ["C", "D"],
+         "triggerQuantity": 3,
+         "discountQuantity": 1,
+         "comment": "Buy 3 of C or D and pay for 2. This belongs to Rule1: buy any 3 equal priced items and pay for 2"
+      }
+   ],
+   "specialPriceRules": [
+      {
+         "id": 21,
+         "itemIds": ["E", "F"],
+         "specialPrice": 10.00,
+         "comment": "Special price for E and F is £10.00. This belongs to Rule2: Special price for item E and F."
+      },
+      {
+         "id": 2,
+         "itemIds": ["G", "H"],
+         "specialPrice": 10.00,
+         "comment": "Special price for G and H is £10.00. This belongs to Rule2: Special price for item G and H."
+      }
+   ],
+   "cheapestFreeInGroupRules": [
+      {
+         "id": 3,
+         "groupId": 5,
+         "comment": "This belongs to Rule3: Buy 3 of 5 and get the cheapest free."
+      }
+   ],
+   "buyNOfXGetKOfYFreeRules": [
+      {
+         "id": 4,
+         "itemX": "I",
+         "itemY": "J",
+         "ntoTrigger": 3,
+         "ktoTrigger": 1,
+         "comment": "Example is Buy 3(N) bottles of water (X) and get 1(K) soda (Y) for free (N = 3, X=Water, K = 1, Y=Soda). This belongs to Rule4: for each N items X, you get K items Y for free"
+      }
+   ]
+}
+```
 
-## Instructions to build/test/run the system
+## Sample Input Files
+### checkout_items.csv
+```
+item-id,group-id,quantity,unit-price
+A,1,3,50.00
+B,1,2,20.00
+C,1,3,10.00
+```
+## Outstanding Challenge: Optimal Discount Selection
+The current implementation doesn't find the absolute best discount when multiple rules apply. Here's why:
 
-This guide assumes you're using Java 11 and have downloaded the application code package.
+1. Exponential Number of Combinations: The number of possible discount combinations grows exponentially with the number of rules.
+2. Overlapping Rules: Items can qualify for multiple discounts, leading to redundant calculations.
 
-Prerequisites:
+This makes finding the optimal solution intractable for large datasets (NP-hard problem).
 
-Java 11 installed (https://www.oracle.com/java/technologies/downloads/)
-Gradle installed (https://gradle.org/install/)
-Build Instructions:
+### Possible Approach: Prioritized Discounts
+One approach is to prioritize discounts based on some criteria (e.g., percentage discount) and apply them sequentially. This reduces complexity but might miss the absolute best combination.
 
-Navigate to the project directory: Open a terminal window and navigate to the directory where you downloaded the code package.
+A more sophisticated solution is beyond the scope of this release.
 
-Build and test the application: Run the following command to build the application and execute the unit tests:
-
-Bash
-./gradlew build
-Use code with caution.
-content_copy
-This command will download any dependencies needed by the project, compile the source code, run the unit tests, and create a build output (usually in a build directory).
-
-Running the Application:
-
-Run the application:  Execute the following command to run the application with sample data:
-
-Bash
-./gradlew run
-Use code with caution.
-content_copy
-This command will use the built application and sample data to simulate a cart with items and discount rules.  The final receipt for the cart will be printed on the console.
-
-Additional Notes:
-
-The provided commands assume you are using a Linux or macOS system. If you're on Windows, you might need to use gradlew.bat instead of ./gradlew.
-This guide assumes the Gradle wrapper scripts (gradlew or gradlew.bat) are present in the project directory. If not, you might need to run gradle build and gradle run directly using the Gradle command.
-By following these steps, you should be able to build, test, and run the Java application using Gradle. If you encounter any issues or need further assistance, feel free to ask for help.
-
-## One key challenge is left out in this release.
-- The challenge is to find the best discount for the user when more than one rule applies. I have not implemented this feature in the code. 
-### Challenge
- Imagine you have n items in your cart and m discount rules. 
- Each rule might apply to a subset of these items. 
- The naive approach would be to try applying every combination of rules to the cart and see which one yields the cheapest total. 
- This is where things get tricky.
-
- Number of Combinations: The number of combinations of rules to try grows exponentially with the number of rules (m). For example, with just 5 rules, you have 2^5 (32) possible combinations to test.
-
- Overlapping Rules: The complexity arises because items can potentially qualify for multiple discounts. This means a single item might be included in many different combinations, leading to redundant calculations.
-
- Intractable for Large Numbers:
-
-As the number of items and rules increases, the number of combinations explodes.  Trying all combinations becomes impractical and takes an extremely long time (exponential time complexity). This is why the problem is considered NP-hard - there's no known efficient algorithm guaranteed to find the optimal solution in all cases for large datasets.
-https://www.researchgate.net/publication/220273718_Internet_shopping_optimization_problem 
-
-### One possible approach - Prioritized Discounts
-One possible approach is to prioritize the discounts based on some criteria. For example, you could sort the discounts based on the percentage discount they offer, and then apply them in that order. This way, the most beneficial discounts are applied first, potentially reducing the total cost. In order for this approach to be successful, the higher discounts rule should be at the top. So, there is no need to check for the best discount.
-
+### Additional Notes
+The provided reference Network optimizations in the Internet of Things: A review discusses this challenge in more detail.
+[https://www.researchgate.net/publication/327820942_Network_optimizations_in_the_Internet_of_Things_A_review]
